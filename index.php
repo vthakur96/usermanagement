@@ -1,5 +1,10 @@
 <?php
 include 'config.php';
+
+$action = 'Save';
+
+
+
 	
 //Select data
 $qry = "SELECT * FROM prj1 ORDER BY id DESC";
@@ -9,10 +14,17 @@ $data = array();
  $data []= $row;
  }
  
-//Insert data
+//Insert/Update data
 if(isset($_POST['save'])){
 	$name =$_POST['name'];
-	$qry="insert into prj1 (name) values('$name')";
+	$id   = $_POST['id'];
+	
+	if($id)
+		$qry="update prj1 set name='$name' where id ='$id'";
+	else
+		$qry="insert into prj1 (name) values('$name')";
+	
+	
 	$res =mysqli_query($link,$qry);
 	if((mysqli_affected_rows($link))>0){
 	header("location:index.php");
@@ -36,14 +48,25 @@ if(isset($_GET['del'])){
 	}
 }
 
+//Update data
+if(isset($_GET['edit'])){
+	$id = $_GET['edit'];
+	$action = 'Update';
+	$qry = "SELECT * FROM prj1 where id ='$id'";
+	$res  = mysqli_query($link,$qry);
+	if($result = mysqli_fetch_assoc($res)){
+		$name = $result['name'];
+	}
+}	
 ?>
 <html>
 	<head>
 	</head>
 	<body>
 		<form name="frm1" method="post" action="index.php">
-			<input type="text" name="name">
-			<input type="submit" name="save" value="Save">
+			<input type="text" name="name" value="<?=isset($name)? $name : ''?>">
+			<input type="hidden" name="id" value="<?=isset($id)? $id : ''?>">
+			<input type="submit" name="save" value="<?=$action?>">
 		</form>
 		<table border="1" width="200">
 			<? foreach($data as $get){?>
