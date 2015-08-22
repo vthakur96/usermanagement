@@ -19,7 +19,8 @@ if(isset($_POST['save'])){
 	}
 	else{
 		echo 'Data not Saved';
-	}	
+	}
+	header("location:index.php");	
 }
 ?>
 <html>
