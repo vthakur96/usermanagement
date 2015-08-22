@@ -14,6 +14,12 @@ if(isset($_POST['save'])){
 	$name =$_POST['name'];
 	$qry="insert into prj1 (name) values('$name')";
 	$res =mysqli_query($link,$qry);
+	if((mysqli_affected_rows($link))>0){
+		echo 'Data Saved';
+	}
+	else{
+		echo 'Data not Saved';
+	}	
 }
 ?>
 <html>
