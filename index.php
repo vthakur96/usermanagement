@@ -1,13 +1,5 @@
 <?php
 include 'config.php';
-	
-//Select data
-$qry = "SELECT * FROM prj1 ORDER BY id DESC";
-$res  = mysqli_query($link,$qry);
-$data = array();	
- while(($row =mysqli_fetch_assoc($res))!=null){
- $data []= $row;
- }
 
 //Insert data
 if(isset($_POST['save'])){
@@ -19,9 +11,16 @@ if(isset($_POST['save'])){
 	}
 	else{
 		echo 'Data not Saved';
-	}
-	header("location:index.php");	
+	}	
 }
+//Select data
+$qry = "SELECT * FROM prj1 ORDER BY id DESC";
+$res  = mysqli_query($link,$qry);
+$data = array();	
+ while(($row =mysqli_fetch_assoc($res))!=null){
+ $data []= $row;
+ }
+
 ?>
 <html>
 	<head>
