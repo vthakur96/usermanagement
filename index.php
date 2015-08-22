@@ -1,22 +1,27 @@
 <?php
 include 'config.php';
 	
-//select data
+//Select data
 $qry = "SELECT * FROM prj1 ORDER BY id DESC";
 $res  = mysqli_query($link,$qry);
 $data = array();	
  while(($row =mysqli_fetch_assoc($res))!=null){
  $data []= $row;
  }
- 
- 
+
+//Insert data
+if(isset($_POST['save'])){
+	$name =$_POST['name'];
+	$qry="insert into prj1 (name) values('$name')";
+	$res =mysqli_query($link,$qry);
+}
 ?>
 <html>
 	<head>
 	</head>
 	<body>
-		<form>
-			<input type="text" name="username">
+		<form name="frm1" method="post" action="index.php">
+			<input type="text" name="name">
 			<input type="submit" name="save" value="Save">
 		</form>
 		<table border="1" width="200">
