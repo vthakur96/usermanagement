@@ -19,7 +19,7 @@ if(isset($_POST['save'])){
 		$qry="insert into prj1 (name) values('$name')";
 		$res =mysql_query($qry);
 		if((mysql_affected_rows())>0){
-		header("location:home.php");
+		header("location:index.php");
 		}	
 }
 if(isset($_GET['edit'])){
@@ -38,7 +38,7 @@ if(isset($_GET['del'])){
 	$id =$_GET['del'];
 	$qry ="delete from prj1 where id =$id";
 	$res = mysql_query($qry);
-	header("location:home.php");
+	header("location:indx.php");
 
 }
 
@@ -47,7 +47,7 @@ if(isset($_GET['del'])){
 	<head>
 	</head>
 	<body>
-		<form name="frm1" method="post" action="home.php">
+		<form name="frm1" method="post" action="index.php">
 			<input type="text" name="name" value="<?=isset($name)? $name : ''?>">
 			<input type="hidden" name="id" value="<?=isset($id)? $id : ''?>">
 			<input type="submit" name="save" value="<?=$butten?>">
