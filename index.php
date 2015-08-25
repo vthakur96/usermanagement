@@ -2,7 +2,6 @@
 include 'conn.php';
 $butten = 'Save';
 
-
 //select data
 $qry = "SELECT * FROM prj1 ORDER BY id DESC";
 	$res  = mysql_query($qry);
