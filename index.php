@@ -13,20 +13,14 @@ $qry = "SELECT * FROM prj1 ORDER BY id DESC";
 if(isset($_POST['save'])){
 	$name =$_POST['name'];
 	$id   = $_POST['id'];
-	
 	if($id)
 		$qry="update prj1 set name='$name' where id ='$id'";
 	else
 		$qry="insert into prj1 (name) values('$name')";
-	
-	
-	$res =mysql_query($qry);
-	if((mysql_affected_rows())>0){
-	header("location:home.php");
-	}
-	else{
-		echo 'Data not Saved';
-	}	
+		$res =mysql_query($qry);
+		if((mysql_affected_rows())>0){
+		header("location:home.php");
+		}	
 }
 if(isset($_GET['edit'])){
 	$id = $_GET['edit'];
@@ -44,15 +38,10 @@ if(isset($_GET['del'])){
 	$id =$_GET['del'];
 	$qry ="delete from prj1 where id =$id";
 	$res = mysql_query($qry);
-	if((mysql_affected_rows())>0){
-		header("location:home.php");
-		}
-	else{
-		echo 'data not deleted';
-	}
+	header("location:home.php");
+
 }
 
-	
 ?>
 <html>
 	<head>
