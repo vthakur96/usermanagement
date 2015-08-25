@@ -2,8 +2,7 @@
 $host = "localhost";
 $user = "root";
 $pass = "";
-
-$link =mysqli_connect($host,$user,$pass,"sample")
+mysql_connect($host,$user,$pass,"sample");
 
 ?>
 
