@@ -1,45 +1,35 @@
 <?php
-include 'conn.php';
-$butten = 'Save';
+include 'config.php';
+include 'include/function.php';
 
-//select data
-$qry = "SELECT * FROM prj1 ORDER BY id DESC";
-	$res  = mysql_query($qry);
-	$data = array();	
-	while(($row =mysql_fetch_assoc($res))!=null){
-	$data []= $row;
-} 
+$data 	= getUser();
+$button	='Save';
+$name ='';
+$id = isset($_GET['edit'])?$_GET['edit']: '';
 //Insert/Update data
 if(isset($_POST['save'])){
-	$name =$_POST['name'];
-	$id   = $_POST['id'];
-	if($id)
-		$qry="update prj1 set name='$name' where id ='$id'";
-	else
-		$qry="insert into prj1 (name) values('$name')";
-		$res =mysql_query($qry);
-		if((mysql_affected_rows())>0){
+	if(addUpadte($_POST)){
 		header("location:index.php");
-		}	
-}
-if(isset($_GET['edit'])){
-	$id = $_GET['edit'];
-	$butten = 'Update';
-	$qry = "SELECT * FROM prj1 where id ='$id'";
-	$res  = mysql_query($qry);
-	if($result = mysql_fetch_assoc($res)){
-		$name = $result['name'];
+		}
+	else 
+	  echo "Some thing went wrong";		
 	}
+
+
+if(isset($_GET['edit'])){
+	$button = 'Update';
+	if(edit($_GET)){
+		
+		$name =edit($name);
+		}
 }
+
 
 //Delete data
 if(isset($_GET['del'])){
-	
-	$id =$_GET['del'];
-	$qry ="delete from prj1 where id =$id";
-	$res = mysql_query($qry);
-	header("location:indx.php");
-
+	if(dlt($_GET)){
+		}
+    header("location:index.php");
 }
 
 ?>
@@ -50,7 +40,7 @@ if(isset($_GET['del'])){
 		<form name="frm1" method="post" action="index.php">
 			<input type="text" name="name" value="<?=isset($name)? $name : ''?>">
 			<input type="hidden" name="id" value="<?=isset($id)? $id : ''?>">
-			<input type="submit" name="save" value="<?=$butten?>">
+			<input type="submit" name="save" value="<?=$button?>">
 		</form>
 		<table border="5" width="300">
 			<? foreach($data as $array){?>
@@ -62,5 +52,4 @@ if(isset($_GET['del'])){
 			<? }?>
 		</table>
 	</body>
-
 </html>
